@@ -1,0 +1,425 @@
+<html lang="es">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Administración de Proyectos
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Times+New+Roman&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <style>
+   body {
+            font-family: 'Times New Roman', serif;
+            background: url('https://wallpapers.com/images/hd/hd-office-background-1920-x-1080-bcynny890vbtg364.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000000f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            position: relative;
+            text-align: center;
+            color: rgb(243, 229, 229);
+        }
+        header img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        header h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.001);
+            padding: 10px 20px;
+            border-radius: 5px;
+            animation: fadeIn 2s ease-in-out;
+            font-size: 2em;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        nav {
+            background-color: rgba(32, 127, 210, 0.311);
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #cecbcb;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 1.2em;
+        }
+        nav ul li a:hover {
+            color: #e0caca;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0);
+            padding: 20px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        .container:hover {
+            background-color: rgba(234, 231, 231, 0.396);
+        }
+        .section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .section.active {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            opacity: 1;
+        }
+        .section img {
+            max-width: 45%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+        .section img:hover {
+            transform: scale(1.05);
+        }
+        .section .content {
+            max-width: 50%;
+        }
+        .section h2 {
+            font-size: 1.8em;
+            margin: 10px 0;
+            transition: color 0.3s;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        .section h2:hover {
+            color: #0b7ef9;
+        }
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        footer {
+            background-color: rgba(108, 117, 125, 0.437);
+            color: #ed1717;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1.2em;
+        }
+        .info {
+            position: relative;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            font-size: 20;
+        }
+        .info img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .info .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(163, 52, 52, 0.032);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.5em;
+        }
+  </style>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('nav ul li a');
+            const sections = document.querySelectorAll('.section');
+
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            
+            sections[0].classList.add('active');
+        });
+  </script>
+ </head>
+ <body>
+  <div class="info">
+    <img src="https://scontent-qro1-1.xx.fbcdn.net/v/t1.6435-9/70938963_107636517306655_3089393065756983296_n.png?_nc_cat=105&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEV34_F6CsFMSLuCZbaGjGBsWLwI11r3HCxYvAjXWvccGFar1nBM5Hmp0QHhctFC9H_tRSXnyQFJaRK-FMGX92K&_nc_ohc=djmnygQ_MfgQ7kNvgGvnVXQ&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=At7R7FNnhTy5yKW2BGTvJWs&oh=00_AYAMKM0Mz-vLqwHuY8eYAyEWnyMOEl6fgSkAnzbwhJ9sRw&oe=676E65AC"
+    <p>
+     Instituto Tecnológico Huejutla
+    </p>
+    <p>
+ José Anastacio Hernández Castillo
+    </p>
+    <p>
+     María Guadalupe Rivera García  |   Taller de Administración
+    </p>
+   
+   
+  </div>
+  <header>
+   <img alt="Imagen de administración de proyectos con gráficos y diagramas" height="200" src="https://i.pinimg.com/originals/b6/a2/e7/b6a2e77abdc8c4007328929ff37a5451.jpg" width="1920"/>
+   <h1>
+    Administración de Proyectos
+   </h1>
+  </header>
+  <nav>
+   <ul>
+    <li>
+     <a href="#inicio">
+      Inicio
+     </a>
+    </li>
+    <li>
+     <a href="#administracion">
+      Administración
+     </a>
+    </li>
+    <li>
+     <a href="#informacion">
+      Información
+     </a>
+    </li>
+    <li>
+     <a href="#planificacion">
+      Planificación
+     </a>
+    </li>
+    <li>
+     <a href="#metodologia">
+      Metodología
+     </a>
+    </li>
+    <li>
+     <a href="#conclusiones">
+      Conclusiones
+     </a>
+    </li>
+    <li>
+     <a href="#bibliografia">
+      Bibliografía
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <div class="container">
+   <div class="section active" id="inicio">
+    <img alt="Imagen de bienvenida con gráficos y diagramas de proyectos" height="400" src="https://img.freepik.com/fotos-premium/fondo-borroso-diseno-interior-oficina-moderna-espacio-trabajo-contemporaneo-negocios-creativos_31965-74711.jpg" width="600"/>
+    <div class="content">
+     <h2>
+      Bienvenido a la Administración de Proyectos
+     </h2>
+     <p>
+      La administración de proyectos es una disciplina que se enfoca en la planificación, organización, ejecución y control de proyectos para alcanzar objetivos específicos dentro de un tiempo, presupuesto y calidad determinados. Inicia con la definición de los objetivos, la identificación de los interesados ​​y la creación del acta de constitución del proyecto.
+     </p>
+     <p>
+      Luego, en la etapa de planificación, se desarrollan estrategias para gestionar el alcance, el cronograma, los recursos, el presupuesto y los riesgos. Durante la ejecución, se coordina el trabajo del equipo, se mantienen comunicaciones constantes con los interesados ​​y se resuelven problemas según surjan. En la fase de monitoreo y control, se realiza un seguimiento del progreso, se comparan los resultados con el plan inicial y se gestionan cambios para minimizar las desviaciones. Finalmente, en el cierre, se entregan los entregables, se evalúan los resultados y se documentan las lecciones aprendidas.
+     </p>
+    </div>
+   </div>
+   <div class="section" id="administracion">
+    <img alt="Imagen de un equipo de trabajo colaborando en un proyecto con gráficos y diagramas en una pizarra blanca" height="400" src="https://storage.googleapis.com/a1aa/image/miaWaerkrnT3f0PSF8sGPnLhfuOjoPIabqs2sApWQpn8LUqnA.jpg" width="600"/>
+    <div class="content">
+     <h2>
+      Administración de proyectos
+     </h2>
+     <p>
+      La administración de proyectos ha experimentado varios cambios significativos en los últimos años. Aquí te dejo un resumen de la situación actual:
+     </p>
+     <p>
+      Metodologías híbridas: La pandemia de COVID-19 ha impulsado el uso de metodologías híbridas que combinan enfoques ágiles y tradicionales.
+     </p>
+     <p>
+      Proyectos más complejos: La gestión de portafolios complejos ha aumentado, lo que requiere que más personas trabajen como administradores de proyectos.
+     </p>
+     <p>
+      Reclutamiento especializado: Hay una mayor demanda de perfiles más especializados en la gestión de proyectos.
+     </p>
+     <p>
+      Tecnología y digitalización: La tecnología sigue siendo un factor clave, con un enfoque creciente en la digitalización y el uso de herramientas avanzadas.
+     </p>
+     <p>
+      Análisis de mercado y competencia: Es crucial realizar un análisis exhaustivo del mercado y la competencia para identificar oportunidades y amenazas.
+     </p>
+     <h2>
+      Fundamentos De La Administración De Proyectos
+     </h2>
+     <p>
+      La administración de proyectos es una disciplina que se encarga de planificar, organizar, dirigir y controlar los recursos, actividades y tareas necesarias para alcanzar los objetivos de un proyecto específico. Algunos fundamentos clave incluyen:
+     </p>
+     <p>
+      Definición clara de los objetivos: Es esencial definir de manera precisa los objetivos que se desean alcanzar.
+     </p>
+     <p>
+      Planificación detallada: Incluye la secuencia de actividades, recursos necesarios, plazos de ejecución y responsables de cada tarea.
+     </p>
+     <p>
+      Asignación de recursos adecuados: Contar con los recursos humanos, financieros, tecnológicos y materiales necesarios.
+     </p>
+     <p>
+      Comunicación efectiva: Establecer canales de comunicación claros y efectivos entre todos los miembros del equipo.
+     </p>
+     <p>
+      Control y seguimiento: Monitorear el avance del proyecto y tomar acciones correctivas cuando sea necesario.
+     </p>
+     <p>
+      Evaluación y aprendizaje: Analizar los resultados obtenidos y aprender de los errores y aciertos para mejorar en futuros proyectos.
+     </p>
+    </div>
+   </div>
+   <div class="section" id="informacion">
+    <img alt="Imagen de una reunión de equipo con laptops y documentos sobre la mesa" height="400" src="https://storage.googleapis.com/a1aa/image/vvF3gfVpJPTZSKK2qq9yuU8qPIegG0HoZEAZxyOQ5Nc1FK1TA.jpg" width="600"/>
+    <div class="content">
+     <h2>
+      La situación actual del entorno
+     </h2>
+     <p>
+      En la administración de proyectos está influenciada por varios factores importantes. En primer lugar, las tendencias globales han llevado a la adopción de metodologías híbridas que combinan enfoques ágiles y tradicionales, especialmente debido a la pandemia de COVID-19 que ha cambiado las dinámicas laborales hacia modelos remotos e híbridos. Además, la complejidad de los proyectos ha aumentado, requiriendo una gestión más sofisticada de portafolios complejos.
+     </p>
+     <p>
+      En términos de tecnología, la automatización y la inteligencia artificial están transformando la administración de proyectos, permitiendo una mayor eficiencia y una toma de decisiones más informada. El uso de software especializado para la gestión de proyectos sigue en aumento, mejorando la planificación, el seguimiento y el control de las actividades.
+     </p>
+     <p>
+      En cuanto a los recursos humanos, hay una creciente demanda de perfiles especializados en administración de proyectos, con un enfoque tanto en habilidades técnicas como de liderazgo. La capacitación continua y el desarrollo de habilidades son esenciales para mantenerse al día con las nuevas tendencias y tecnologías.
+     </p>
+     <p>
+      Los riesgos y desafíos en la gestión de proyectos incluyen la necesidad de identificar y gestionar riesgos de manera proactiva y la capacidad de adaptarse rápidamente a cambios y desafíos inesperados, lo cual es fundamental para el éxito de los proyectos.
+     </p>
+     <p>
+      La sostenibilidad también se ha convertido en un factor importante, con una creciente conciencia sobre la necesidad de considerar el impacto ambiental en la gestión de proyectos y promover prácticas sostenibles.
+     </p>
+     <p>
+      En resumen, la administración de proyectos está evolucionando para adaptarse a un entorno dinámico y en constante cambio, donde la tecnología, la especialización y la sostenibilidad juegan roles cruciales.
+     </p>
+    </div>
+   </div>
+   <div class="section" id="planificacion">
+    <img alt="Imagen de un gerente de proyecto presentando un plan en una pantalla grande" height="400" src="https://storage.googleapis.com/a1aa/image/vU8eZu30jepm5UTEk6gax2OQZmUgxVDENJzGQWXvVns7FK1TA.jpg" width="600"/>
+    <div class="content">
+     <h2>
+      Planificación
+     </h2>
+     <p>
+      La planificación de la administración de proyectos es crucial para el éxito de cualquier iniciativa. Primero, es importante definir los objetivos y el alcance del proyecto, estableciendo claramente qué se quiere lograr y los límites de lo que se incluye. Luego, se desarrolla un cronograma detallado, identificando todas las tareas necesarias, determinando el orden en que deben realizarse y asignando una duración estimada a cada una, utilizando herramientas como gráficos de Gantt para visualizar el cronograma completo.
+     </p>
+     <p>
+      Asignar los recursos humanos, materiales y tecnológicos es esencial para asegurar que todo esté disponible cuando se necesite, y distribuir roles y responsabilidades entre los miembros del equipo. También se debe estimar los costos asociados a cada tarea y asignar el presupuesto de manera adecuada, monitoreando los gastos a lo largo del proyecto para ajustar cualquier desviación.
+     </p>
+     <p>
+      La planificación de la gestión de riesgos implica identificar posibles riesgos, evaluar su probabilidad e impacto y desarrollar estrategias para mitigar o responder a estos riesgos. Un plan de comunicación efectivo asegura que toda la información relevante se comparta con el equipo y los interesados, programando reuniones periódicas para revisar el progreso y resolver problemas.
+     </p>
+     <p>
+      Finalmente, es crucial el monitoreo y control del proyecto, utilizando indicadores clave de desempeño para medir el avance, produciendo informes de estado regulares y gestionando cualquier cambio en el alcance, tiempo o presupuesto. Estos pasos ayudan a mantener el proyecto alineado con los objetivos establecidos y aseguran una ejecución eficiente y efectiva.
+     </p>
+    </div>
+   </div>
+   <div class="section" id="metodologia">
+    <img alt="Imagen de un equipo de desarrollo trabajando en una oficina moderna" height="400" src="https://storage.googleapis.com/a1aa/image/RDSKfVpfCzv5i0N8BE66DCIKiMbKzvZYMifiZSvw4W1wLUqnA.jpg" width="600"/>
+    <div class="content">
+     <h2>
+      ¡Metodología De Administración De proyectos!
+     </h2>
+     <p>
+      Desglose de Trabajo: Dividir el proyecto en actividades más pequeñas y manejables, conocidas como Work Breakdown Structure (WBS). Esto facilita la planificación y el seguimiento.
+     </p>
+     <p>
+      Cronograma: Crear un calendario con fechas específicas para cada tarea, usando gráficos de Gantt para la visualización y coordinación del equipo.
+     </p>
+     <p>
+      Presupuesto: Estimar costos y asignar presupuesto, monitorizando gastos durante el proyecto para ajustar desviaciones a tiempo.
+     </p>
+     <p>
+      Planificación de Riesgos: Identificar, evaluar y desarrollar estrategias para gestionar riesgos, adaptándose a desafíos inesperados.
+     </p>
+     <p>
+      Gestión de Recursos: Coordinar recursos humanos, materiales y tecnológicos, asignando tareas según habilidades y monitoreando el uso eficiente de los recursos.
+     </p>
+    </div>
+   </div>
+   <div class="section" id="conclusiones">
+    <img alt="Imagen de un equipo de trabajo celebrando el éxito de un proyecto" height="400" src="https://storage.googleapis.com/a1aa/image/WM5aeRrmBsSoWy2oOZFxVMgOPOZhiWm7B8BKfqNRqQ52FK1TA.jpg" width="600"/>
+    <div class="content">
+     <h2>
+      Conclusiones
+     </h2>
+     <p>
+      La administración de proyectos es una disciplina esencial que permite a las organizaciones alcanzar sus objetivos de manera eficiente y efectiva. A través de una planificación detallada, una ejecución estructurada y un control riguroso, es posible gestionar recursos, tiempo y costos de manera óptima. Las metodologías varían, pero los principios fundamentales de desglose de trabajo, cronograma, presupuesto, planificación de riesgos y gestión de recursos son universales. Una sólida gestión de proyectos no solo garantiza la finalización exitosa del proyecto, sino que también permite la mejora continua mediante la evaluación y aprendizaje de las experiencias pasadas.
+     </p>
+    </div>
+  
+   </div>
+   <div class="section" id="bibliografia">
+    <div class="content">
+     <h2>
+      Bibliografía
+     </h2>
+     <p>
+      Project Management Institute (PMI): Guía PMBOK (Project Management Body of Knowledge).
+     </p>
+     <p>
+      Lifeder: Administración de proyectos: qué es, fases, objetivos
+     </p>
+     <p>
+      Asana: Las 5 fases de la gestión de proyectos
+     </p>
+     <p>
+      Ciberlinea: Las 5 etapas de la administración de proyectos
+     </p>
+     <p>
+      Garriga, A. (2018). Guía práctica en gestión de proyectos. Editorial Líder.
+     </p>
+     <p>
+      Ameijide García, L. (2019). Gestión de proyectos según el PMI. Editorial Innovación.
+     </p>
+     <p>
+      Mateu, G. (2020). Innovative education management: an empirical study.
+     </p>
+     <p>
+      Olaya-Escobar, E. S., et al. (2021). Factores que impulsan a los investigadores a participar en contratos de investigación y desarrollo.
+     </p>
+     <p>
+      Hernández-Ramírez, M., et al. (2022). Orientación emprendedora y desempeño innovador en las pymes.
+     </p>
+     <p>
+      Martínez-Villavicencio, J., et al. (2023). Adopción y utilización de aplicaciones de marketing digital en pymes exportadoras de Costa Rica.
+     </p>
+     <p>
+      Cobo Serrano, S. (2015). Producción científica internacional sobre gestión de proyectos en el área de Información y Documentación.
+     </p>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>
